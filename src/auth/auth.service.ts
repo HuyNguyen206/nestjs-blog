@@ -1,5 +1,5 @@
-import { Body, Injectable, InternalServerErrorException, UnauthorizedException } from "@nestjs/common";
-import { LoginDto, RegistrationDto } from "../models/user.dto";
+import { Injectable, InternalServerErrorException } from "@nestjs/common";
+import { RegistrationDto } from "../models/user.dto";
 import { InjectRepository } from "@nestjs/typeorm";
 import { User } from "../entities/user.entity";
 import { Repository } from "typeorm";
@@ -21,20 +21,22 @@ export class AuthService {
     return null;
   }
 
-  // async register(credential: RegistrationDto) {
-  //   try {
-  //     const user = this.userRepo.create(credential);
-  //     return await user.save();
-  //   } catch (err) {
-  //     throw new InternalServerErrorException(err.message);
-  //   }
-  // }
+  async register(credential: RegistrationDto) {
+    try {
+      const user = this.userRepo.create(credential);
+      return {user: {...(await user.save()).toJSON(), access_token: this.generateAccessToken(user)}}
 
-  async login(user: any) {
-    const payload = { email: user.email, sub: user.id };
-    return {
-      access_token: this.jwtService.sign(payload),
-    };
+    } catch (err) {
+      throw new InternalServerErrorException(err.message);
+    }
   }
-  // }
+
+  generateAccessToken(user: User){
+    const payload = { sub: user.id };
+    return this.jwtService.sign(payload)
+  }
+
+  async findUserById(userId: number): Promise<User> {
+    return await this.userRepo.findOne({where:{id: userId}})
+  }
 }

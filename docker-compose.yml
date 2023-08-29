@@ -1,24 +1,6 @@
 version: '3'
 
 services:
-  api:
-    build:
-      context: $PWD
-      dockerfile: $PWD/Dockerfile
-    container_name: ${PROJECT_NAME}-api
-    restart: always
-    command: >
-      bash -c "cd /usr/src/app && yarn install && yarn build && yarn run start:dev --debug 0.0.0.0:9229"
-    volumes:
-      - .:/usr/src/app
-      - /usr/src/app/node_modules
-    ports:
-      - ${APP_PORT}:${APP_PORT}
-      - 9229:9229
-    env_file:
-      - .env
-    networks:
-      - blog-network
   db:
     container_name: postgres
     image: postgres:9.6
@@ -30,10 +12,6 @@ services:
       POSTGRES_DB: ${DATABASE_DB}
     volumes:
       - ./pgdata:/var/lib/postgresql/data
-    networks:
-      - blog-network
 
-networks:
-  blog-network:
 volumes:
   pgdata:
