@@ -13,6 +13,7 @@ async function bootstrap() {
       .setTitle('Blog API')
       .setDescription('The blog API description')
       .setVersion('1.0')
+      .addBearerAuth()
       .addTag('blog, comment')
       .build();
 

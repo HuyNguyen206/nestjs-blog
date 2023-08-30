@@ -1,9 +1,10 @@
-import {Body, Controller, Get, Post, Request, UseGuards} from "@nestjs/common";
+import {Body, Controller, Get, HttpCode, HttpStatus, Post, Request, UseGuards} from "@nestjs/common";
 import { AuthService } from "./auth.service";
 import { LocalAuthGuard } from "./guards/local-auth.guard";
 import { Public } from "./guards/public.guard";
-import {AuthResponse, RegistrationDto} from "../models/user.dto";
+import {AuthResponse, LoginDto, RegistrationDto} from "../models/user.dto";
 import {ResponseObject} from "../models/response.model";
+import {ApiBody, ApiCreatedResponse, ApiOkResponse, ApiResponse, ApiUnauthorizedResponse} from "@nestjs/swagger";
 
 @Controller("auth")
 export class AuthController {
@@ -13,13 +14,19 @@ export class AuthController {
   @Public()
   @UseGuards(LocalAuthGuard)
   @Post('login')
-  async login(@Request() req): Promise<ResponseObject<'user', AuthResponse>> {
+  @HttpCode(HttpStatus.OK)
+  @ApiOkResponse({description: 'User login'})
+  @ApiUnauthorizedResponse({description: 'Invalid credentials'})
+  @ApiBody({type: LoginDto})
+  async login(@Request() req, credential: LoginDto): Promise<ResponseObject<'user', AuthResponse>> {
 
     return {access_token: this.authService.generateAccessToken(req.user), ...req.user};
   }
 
   @Public()
   @Post('register')
+  @ApiCreatedResponse({description: 'User registration'})
+  @ApiBody({type: RegistrationDto})
   async register(@Body() registrationDto: RegistrationDto) {
     return this.authService.register(registrationDto);
   }
