@@ -9,45 +9,45 @@ import {
     Delete,
     HttpCode,
     Get,
-    HttpStatus, Query
+    HttpStatus, Query, Logger, InternalServerErrorException
 } from '@nestjs/common';
 import {ArticleService} from './article.service';
 import {ArticleResponse, CreatedArticleDto, FindAllQuery, FindFeedQuery, UpdateArticleDto} from "../models/article.dto";
 import {JwtAuthGuard} from "../auth/guards/jwt-auth.guard";
 import {ResponseObject} from "../models/response.model";
 import {ApiBearerAuth} from "@nestjs/swagger";
+import {Public} from "../auth/guards/public.guard";
 
 @Controller('articles')
 export class ArticleController {
+    private logger = new Logger('ArticleController')
     constructor(private readonly articleService: ArticleService) {
     }
 
     @Get('/feed')
-    @UseGuards(JwtAuthGuard)
     @ApiBearerAuth()
     async findFeed(@Request() req, @Query() query: FindFeedQuery)
         : Promise<ResponseObject<'articles', ArticleResponse[]> & ResponseObject<'articles_count', number>> {
+        this.logger.verbose(`User ${req.user.username} retrieve all the article with filter: ${JSON.stringify(query)}` )
+
         const articles = await this.articleService.findFeed(req.user, query)
 
         return {articles: articles, articles_count: articles.length}
     }
 
     @Post('/:slug/favorite')
-    @UseGuards(JwtAuthGuard)
     @ApiBearerAuth()
     async favorite(@Request() req, @Param('slug') slug: string) {
         return await this.articleService.favorite(req.user, slug)
     }
 
     @Delete('/:slug/unfavorite')
-    @UseGuards(JwtAuthGuard)
     @ApiBearerAuth()
     async unfavorite(@Request() req, @Param('slug') slug: string) {
         return await this.articleService.unfavorite(req.user, slug)
     }
 
     @Get('/:slug')
-    @UseGuards(JwtAuthGuard)
     @ApiBearerAuth()
     async findBySlug(@Param('slug') slug: string, @Request() req) {
         const article = await this.articleService.findBySlug(slug)
@@ -56,29 +56,34 @@ export class ArticleController {
     }
 
     @Get()
-    @UseGuards(JwtAuthGuard)
-    @ApiBearerAuth()
+    @Public()
     findAll(@Request() req, @Query() query: FindAllQuery) {
+        this.logger.verbose(`User retrieve all the article with filter: ${JSON.stringify(query)}` )
+
         return this.articleService.findAll(req.user, query)
     }
 
     @Post()
-    @UseGuards(JwtAuthGuard)
     @ApiBearerAuth()
     async store(@Body() articleDto: CreatedArticleDto, @Request() req) {
-        const article = await this.articleService.store(articleDto, req.user)
-        return article.withFavorite(req.user)
+        try {
+            const article = await this.articleService.store(articleDto, req.user)
+            return article.withFavorite(req.user)
+        }catch (err) {
+            this.logger.error(err.message, err.stack)
+
+            throw new InternalServerErrorException(err.message)
+        }
+
     }
 
     @Put('/:slug')
-    @UseGuards(JwtAuthGuard)
     @ApiBearerAuth()
     update(@Param('slug') slug: string, @Body() articleDto: UpdateArticleDto, @Request() req) {
         return this.articleService.update(slug, articleDto, req.user)
     }
 
     @Delete('/:slug')
-    @UseGuards(JwtAuthGuard)
     @HttpCode(HttpStatus.NO_CONTENT)
     @ApiBearerAuth()
     delete(@Param('slug') slug: string, @Request() req) {

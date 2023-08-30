@@ -21,19 +21,16 @@ export class UserController {
     }
 
     @Put()
-    @UseGuards(JwtAuthGuard)
     updateUser(@Body() userDto: UpdateUserDto, @Request() req) {
         return this.userService.updateUser(req.user, userDto);
     }
 
     @Post('follow/:username')
-    @UseGuards(JwtAuthGuard)
     followUser( @Request() req, @Param('username') username: string) {
         return this.userService.followUser(req.user, username);
     }
 
     @Delete('unfollow/:username')
-    @UseGuards(JwtAuthGuard)
     unfollowUser( @Request() req, @Param('username') username: string) {
         return this.userService.unfollowUser(req.user, username);
     }
