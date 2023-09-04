@@ -8,7 +8,7 @@ import {User} from "./user.entity";
 
 @Injectable()
 @Entity("comments")
-export class Comment extends AbstractEntity {
+export class Comment extends AbstractEntity<Comment> {
     @Column()
     body: string;
 

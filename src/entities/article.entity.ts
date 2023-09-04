@@ -1,23 +1,23 @@
 import {AbstractEntity} from "./abstract-entity";
 import {
-    AfterInsert,
     BeforeInsert,
     BeforeUpdate,
     Column,
     Entity,
-    getConnection, JoinColumn,
+    JoinColumn, JoinTable,
     ManyToMany,
     ManyToOne, OneToMany,
-    RelationCount
+
 } from "typeorm";
 import {Injectable} from "@nestjs/common";
 import * as slugify from "slug";
 import {User} from "./user.entity";
 import {Comment} from "./comment.entity";
+import {Tag} from "./tag.entity";
 
 @Injectable()
 @Entity("articles")
-export class Article extends AbstractEntity {
+export class Article extends AbstractEntity<Article> {
     @Column({unique: true, nullable:true})
     slug: string
 
@@ -39,11 +39,25 @@ export class Article extends AbstractEntity {
     @ManyToMany(() => User, user => user.favoriteArticles, {onDelete: "CASCADE"})
     favoriteUsers: User[];
 
+    @JoinTable({
+        name: 'article_tag',
+        joinColumn: {
+            name: 'article_id',
+            referencedColumnName: 'id'
+        },
+        inverseJoinColumn: {
+            name: 'tag_id',
+            referencedColumnName: 'id'
+        }
+    })
+    @ManyToMany(() => Tag, tag => tag.articles, {cascade: true, onDelete: "CASCADE"})
+    tags: Tag[];
+
     @ManyToOne(() => User, user => user.articles, {onDelete: "CASCADE"})
     @JoinColumn({ name: "user_id" })
     user: User
 
-    @OneToMany(() => Comment, comment => comment.article, {onDelete: "CASCADE"})
+    @OneToMany(() => Comment, comment => comment.article, {cascade: true, onDelete: "CASCADE"})
     comments: Comment[]
 
     @Column('bigint', {nullable: true})

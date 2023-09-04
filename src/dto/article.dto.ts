@@ -1,6 +1,10 @@
-import {IsArray, IsNotEmpty, IsOptional, IsString, MinLength} from "class-validator";
+import {IsArray, IsDefined, IsNotEmpty, IsOptional, IsString, MinLength, ValidateNested} from "class-validator";
 import {User} from "../entities/user.entity";
 import {Article} from "../entities/article.entity";
+import {CommentDto} from "./comment.dto";
+import {Type} from "class-transformer";
+import {CreateItemDetailDto} from "./item-detail.dto";
+import {TagDto} from "./tag.dto";
 
 export class CreatedArticleDto {
   @IsNotEmpty()
@@ -17,6 +21,20 @@ export class CreatedArticleDto {
   @IsArray()
   @IsString({each: true})
   tagList: string[]
+
+  @IsOptional()
+  @IsArray()
+  @Type(() => CommentDto)
+  @IsDefined()
+  @ValidateNested()
+  comments: CommentDto[]
+
+  @IsOptional()
+  @IsArray()
+  @Type(() => TagDto)
+  @IsDefined()
+  @ValidateNested()
+  tags: TagDto[]
 }
 
 export class UpdateArticleDto {

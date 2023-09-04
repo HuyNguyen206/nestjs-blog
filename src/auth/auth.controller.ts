@@ -2,8 +2,8 @@ import {Body, Controller, Get, HttpCode, HttpStatus, Post, Request, UseGuards} f
 import { AuthService } from "./auth.service";
 import { LocalAuthGuard } from "./guards/local-auth.guard";
 import { Public } from "./guards/public.guard";
-import {AuthResponse, LoginDto, RegistrationDto} from "../models/user.dto";
-import {ResponseObject} from "../models/response.model";
+import {AuthResponse, LoginDto, RegistrationDto} from "../dto/user.dto";
+import {ResponseObject} from "../dto/response.model";
 import {ApiBody, ApiCreatedResponse, ApiOkResponse, ApiResponse, ApiUnauthorizedResponse} from "@nestjs/swagger";
 
 @Controller("auth")

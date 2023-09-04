@@ -1,7 +1,7 @@
 import {Body, Controller, Delete, Get, HttpCode, HttpStatus, Param, Post, Request, UseGuards} from '@nestjs/common';
 import { CommentService } from './comment.service';
 import {JwtAuthGuard} from "../auth/guards/jwt-auth.guard";
-import {CommentDto} from "../models/comment.dto";
+import {CommentDto} from "../dto/comment.dto";
 
 @Controller('articles')
 export class CommentController {

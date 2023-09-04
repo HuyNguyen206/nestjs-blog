@@ -4,7 +4,7 @@ import {Comment} from "../entities/comment.entity";
 import {Repository} from "typeorm";
 import {User} from "../entities/user.entity";
 import {Article} from "../entities/article.entity";
-import {CommentDto} from "../models/comment.dto";
+import {CommentDto} from "../dto/comment.dto";
 
 @Injectable()
 export class CommentService {

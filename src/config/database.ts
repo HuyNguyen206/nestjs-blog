@@ -6,7 +6,7 @@ export class Database implements TypeOrmOptionsFactory {
   createTypeOrmOptions(): TypeOrmModuleOptions {
     return {
       type: 'postgres',
-      subscribers: [ArticleSubscriber],
+      // subscribers: [ArticleSubscriber],
       host: process.env.DATABASE_HOST,
       port: Number(process.env.DATABASE_PORT),
       username: process.env.DATABASE_USERNAME,

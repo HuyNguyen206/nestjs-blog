@@ -12,9 +12,9 @@ import {
     HttpStatus, Query, Logger, InternalServerErrorException
 } from '@nestjs/common';
 import {ArticleService} from './article.service';
-import {ArticleResponse, CreatedArticleDto, FindAllQuery, FindFeedQuery, UpdateArticleDto} from "../models/article.dto";
+import {ArticleResponse, CreatedArticleDto, FindAllQuery, FindFeedQuery, UpdateArticleDto} from "../dto/article.dto";
 import {JwtAuthGuard} from "../auth/guards/jwt-auth.guard";
-import {ResponseObject} from "../models/response.model";
+import {ResponseObject} from "../dto/response.model";
 import {ApiBearerAuth} from "@nestjs/swagger";
 import {Public} from "../auth/guards/public.guard";
 

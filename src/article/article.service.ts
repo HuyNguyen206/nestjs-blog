@@ -3,7 +3,9 @@ import {InjectRepository} from "@nestjs/typeorm";
 import {Article} from "../entities/article.entity";
 import {In, Like, Repository} from "typeorm";
 import {User} from "../entities/user.entity";
-import {CreatedArticleDto, FindAllQuery, FindFeedQuery} from "../models/article.dto";
+import {CreatedArticleDto, FindAllQuery, FindFeedQuery, UpdateArticleDto} from "../dto/article.dto";
+import {Comment} from "../entities/comment.entity";
+import {Tag} from "../entities/tag.entity";
 
 @Injectable()
 export class ArticleService {
@@ -19,12 +21,20 @@ export class ArticleService {
 
     async store(articleData: CreatedArticleDto, user: User) {
         const article = this.articleRepository.create(articleData);
+        if (article.comments.length) {
+            article.comments = articleData.comments.map(com => new Comment(com))
+        }
+
+        if (article.tags.length) {
+            article.tags = articleData.tags.map(tag => new Tag(tag))
+        }
+
         article.user = user;
 
         return await article.save()
     }
 
-    async update(slug: string, articleData: CreatedArticleDto, currentUser: User) {
+    async update(slug: string, articleData: UpdateArticleDto, currentUser: User) {
         const article = await this.findBySlug(slug);
         if (!currentUser.canUpdate(article)) {
             throw new ForbiddenException('You do not have permission to update article')

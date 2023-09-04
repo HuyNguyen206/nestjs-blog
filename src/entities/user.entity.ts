@@ -5,10 +5,11 @@ import * as bcrypt from "bcryptjs";
 import {Injectable} from "@nestjs/common";
 import {Article} from "./article.entity";
 import {Comment} from "./comment.entity";
+import {Tag} from "./tag.entity";
 
 @Injectable()
 @Entity("users")
-export class User extends AbstractEntity {
+export class User extends AbstractEntity<User> {
     @Column()
     email: string;
 
