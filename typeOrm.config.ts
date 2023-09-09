@@ -10,7 +10,7 @@ export default new DataSource({
     host: configService.getOrThrow('DATABASE_HOST'),
     port: configService.getOrThrow('DATABASE_PORT'),
     database: configService.getOrThrow('DATABASE_DB'),
-    username: configService.getOrThrow('DATABASE_USERNAME'),
+    username: configService.getOrThrow('DATABASE_USER'),
     password: configService.getOrThrow('DATABASE_PASSWORD'),
     entities: [
         "src/**/*.entity{.ts,.js}"

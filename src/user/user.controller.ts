@@ -2,6 +2,7 @@ import {Body, Request, Controller, Get, Put, UseGuards, Param, Post, Delete} fro
 import {UserService} from './user.service';
 import {UpdateUserDto} from "../dto/user.dto";
 import {JwtAuthGuard} from "../auth/guards/jwt-auth.guard";
+import { Throttle } from "@nestjs/throttler";
 
 @Controller('users')
 export class UserController {
@@ -12,7 +13,6 @@ export class UserController {
     me(@Request() req) {
         return req.user;
     }
-
     @Get('profile/:username?')
     async profile(@Param('username') username: string, @Request() req) {
         const user = await this.userService.findUserBy('username', username, true, true)
