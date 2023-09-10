@@ -15,9 +15,19 @@ import { UploadModule } from "./upload/upload.module";
 import { ThrottlerGuard, ThrottlerModule } from "@nestjs/throttler";
 import { MailerModule } from "@nestjs-modules/mailer";
 import { HandlebarsAdapter } from "@nestjs-modules/mailer/dist/adapters/handlebars.adapter";
+import { BullModule } from "@nestjs/bull";
 
 @Module({
   imports: [
+    BullModule.forRootAsync({
+      inject: [ConfigService],
+      useFactory: async (configService: ConfigService) => ({
+        redis: {
+          host: configService.get('REDIS_HOST'),
+          port: configService.get('REDIS_PORT')
+        }
+      })
+    }),
     MailerModule.forRootAsync({
       inject: [ConfigService],
       useFactory: async (configService: ConfigService) => ({
