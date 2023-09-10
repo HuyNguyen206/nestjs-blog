@@ -13,9 +13,38 @@ import { CommentModule } from "./comment/comment.module";
 import { ItemsModule } from "./items/items.module";
 import { UploadModule } from "./upload/upload.module";
 import { ThrottlerGuard, ThrottlerModule } from "@nestjs/throttler";
+import { MailerModule } from "@nestjs-modules/mailer";
+import { HandlebarsAdapter } from "@nestjs-modules/mailer/dist/adapters/handlebars.adapter";
 
 @Module({
   imports: [
+    MailerModule.forRootAsync({
+      inject: [ConfigService],
+      useFactory: async (configService: ConfigService) => ({
+        transport: {
+          host: configService.getOrThrow('MAIL_HOST'),
+          port: configService.getOrThrow('MAIL_PORT'),
+          secure: false,
+          auth: {
+            user: configService.getOrThrow('MAIL_USER'),
+            pass: configService.getOrThrow('MAIL_PASS')
+          }
+        },
+        defaults: {
+          from: `No reply<${configService.getOrThrow('MAIL_FROM')}>`
+        },
+        preview: true,
+        template: {
+          dir: __dirname + '/emails/templates',
+          adapter: new HandlebarsAdapter(),
+          options:{
+            strict: true
+          }
+        }
+      }),
+
+
+    }),
     ThrottlerModule.forRootAsync({
       inject: [ConfigService],
       useFactory: (config: ConfigService) => [

@@ -3,9 +3,12 @@ import { AppModule } from './app.module';
 import {Logger, ValidationPipe} from "@nestjs/common";
 import 'dotenv/config';
 import {DocumentBuilder, SwaggerDocumentOptions, SwaggerModule} from "@nestjs/swagger";
+import * as FormData from 'express-form-data';
+
 async function bootstrap() {
   const logger = new Logger('bootrap')
   const app = await NestFactory.create(AppModule);
+  app.use(FormData.parse());
   app.setGlobalPrefix('api')
   app.useGlobalPipes(new ValidationPipe({
     whitelist: true
