@@ -1,10 +1,22 @@
-import {Body, Controller, Get, HttpCode, HttpStatus, Post, Request, UseGuards} from "@nestjs/common";
+import {
+  Body,
+  Controller,
+  Get,
+  HttpCode,
+  HttpStatus,
+  Post,
+  Request,
+  UploadedFile,
+  UseGuards,
+  UseInterceptors
+} from "@nestjs/common";
 import { AuthService } from "./auth.service";
 import { LocalAuthGuard } from "./guards/local-auth.guard";
 import { Public } from "./guards/public.guard";
-import {AuthResponse, LoginDto, RegistrationDto} from "../dto/user.dto";
-import {ResponseObject} from "../dto/response.model";
+import {AuthResponse, LoginDto, RegistrationDto} from "../v1/dto/user.dto";
+import {ResponseObject} from "../v1/dto/response.model";
 import {ApiBody, ApiCreatedResponse, ApiOkResponse, ApiResponse, ApiUnauthorizedResponse} from "@nestjs/swagger";
+import {FileInterceptor} from "@nestjs/platform-express";
 
 @Controller("auth")
 export class AuthController {
@@ -27,7 +39,9 @@ export class AuthController {
   @Post('register')
   @ApiCreatedResponse({description: 'User registration'})
   @ApiBody({type: RegistrationDto})
-  async register(@Body() registrationDto: RegistrationDto) {
+  @UseInterceptors(FileInterceptor('avatar'))
+  async register(@Body() registrationDto: RegistrationDto, @UploadedFile() file: Express.Multer.File) {
+    console.log(file)
     return this.authService.register(registrationDto);
   }
 

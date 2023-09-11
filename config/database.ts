@@ -1,6 +1,6 @@
 import { Injectable } from "@nestjs/common";
 import { TypeOrmModuleOptions, TypeOrmOptionsFactory } from "@nestjs/typeorm";
-import {ArticleSubscriber} from "../subscribers/article.subscriber";
+import {ArticleSubscriber} from "../src/subscribers/article.subscriber";
 @Injectable()
 export class Database implements TypeOrmOptionsFactory {
   createTypeOrmOptions(): TypeOrmModuleOptions {

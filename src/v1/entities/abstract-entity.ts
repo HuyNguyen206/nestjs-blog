@@ -1,5 +1,5 @@
 import { BaseEntity, CreateDateColumn, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
-import {instanceToPlain} from "class-transformer";
+import {instanceToPlain, plainToInstance} from "class-transformer";
 
 export abstract class AbstractEntity<T> extends BaseEntity {
   @PrimaryGeneratedColumn()

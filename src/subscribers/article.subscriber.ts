@@ -1,5 +1,5 @@
 import {DataSource, EntitySubscriberInterface, EventSubscriber, InsertEvent} from "typeorm";
-import {Article} from "../entities/article.entity";
+import {Article} from "../v1/entities/article.entity";
 import * as slugify from "slug";
 import {Logger} from "@nestjs/common";
 

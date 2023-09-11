@@ -1,9 +1,9 @@
 import {Controller, Get, Post, Body, Patch, Param, Delete, UseGuards, Put, HttpCode, HttpStatus} from '@nestjs/common';
 import { ItemsService } from './items.service';
 import {CreateItemDto, UpdateItemDto} from "../dto/item.dto";
-import {JwtAuthGuard} from "../auth/guards/jwt-auth.guard";
+import {JwtAuthGuard} from "../../auth/guards/jwt-auth.guard";
 
-@Controller('items')
+@Controller()
 @UseGuards(JwtAuthGuard)
 export class ItemsController {
   constructor(

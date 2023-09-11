@@ -24,6 +24,9 @@ export class User extends AbstractEntity<User> {
     bio: string;
 
     @Column({nullable: true})
+    avatar: string;
+
+    @Column({nullable: true})
     image?: string;
 
     @OneToMany(() => Comment, comment => comment.user, {onDelete: "CASCADE"})

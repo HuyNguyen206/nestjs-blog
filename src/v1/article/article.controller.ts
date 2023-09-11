@@ -2,7 +2,6 @@ import {
     Body,
     Controller,
     Post,
-    UseGuards,
     Request,
     Put,
     Param,
@@ -13,12 +12,11 @@ import {
 } from '@nestjs/common';
 import {ArticleService} from './article.service';
 import {ArticleResponse, CreatedArticleDto, FindAllQuery, FindFeedQuery, UpdateArticleDto} from "../dto/article.dto";
-import {JwtAuthGuard} from "../auth/guards/jwt-auth.guard";
 import {ResponseObject} from "../dto/response.model";
 import {ApiBearerAuth} from "@nestjs/swagger";
-import {Public} from "../auth/guards/public.guard";
+import {Public} from "../../auth/guards/public.guard";
 
-@Controller('articles')
+@Controller()
 export class ArticleController {
     private logger = new Logger('ArticleController')
     constructor(private readonly articleService: ArticleService) {

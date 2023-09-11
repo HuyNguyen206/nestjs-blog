@@ -7,8 +7,8 @@ export class Item extends AbstractEntity<Item>{
     @Column()
     name: string
 
-    @Column()
-    quantity: number
+    // @Column()
+    // quantity: number
 
     @Column({default: false})
     is_public: boolean

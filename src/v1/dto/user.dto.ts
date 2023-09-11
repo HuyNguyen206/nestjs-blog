@@ -18,6 +18,7 @@ export class RegistrationDto extends LoginDto{
   @IsString()
   @ApiProperty({type: String, description: 'username'})
   username: string
+
 }
 
 export class UpdateUserDto {

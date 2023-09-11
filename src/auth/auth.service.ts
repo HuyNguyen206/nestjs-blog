@@ -1,7 +1,7 @@
 import { Injectable, InternalServerErrorException } from "@nestjs/common";
-import { RegistrationDto } from "../dto/user.dto";
+import { RegistrationDto } from "../v1/dto/user.dto";
 import { InjectRepository } from "@nestjs/typeorm";
-import { User } from "../entities/user.entity";
+import { User } from "../v1/entities/user.entity";
 import { Repository } from "typeorm";
 import { JwtService } from "@nestjs/jwt";
 
