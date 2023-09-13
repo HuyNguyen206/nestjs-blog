@@ -1,0 +1,1 @@
+export const GRPC_BOOKING_SERVICE= 'grpc_booking_service';

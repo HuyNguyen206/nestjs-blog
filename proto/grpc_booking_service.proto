@@ -1,0 +1,55 @@
+syntax = "proto3";
+
+package grpc_booking_service;
+
+service BookingService {
+    rpc CreateBooking (CreateBookingDto) returns (Booking) {}
+    rpc FindAllBookings (Empty) returns (Bookings) {};
+    rpc FindOneBookings (FindOneBookingDto) returns (Booking) {};
+    rpc UpdateBooking (UpdateBookingDto) returns (Booking) {};
+    rpc RemoveUser (FindOneBookingDto) returns (Booking) {};
+    rpc QueryUsers (stream PaginationDto) returns (stream Bookings) {};
+}
+
+message Empty {}
+
+message Bookings {
+    repeated Booking bookings = 1;
+}
+
+message PaginationDto {
+    int32 page = 1;
+    int32 sip = 2;
+}
+
+message CreateBookingDto {
+    string name = 1;
+    string start_date = 2;
+    string end_date =  3;
+}
+
+message UpdateBookingDto {
+    string id = 1;
+    string name = 2;
+    string start_date = 3;
+    string end_date =  4;
+    Media media = 5;
+}
+
+message FindOneBookingDto {
+    string id = 1;
+}
+
+message Booking {
+    string id = 1;
+    string name = 2;
+    string start_date = 3;
+    string end_date =  4;
+    bool is_active = 5;
+    Media media = 6;
+}
+
+message Media {
+    optional string image = 1;
+    optional int32 order = 2;
+}
