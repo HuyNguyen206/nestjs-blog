@@ -34,6 +34,6 @@ export class BookingController implements BookingServiceController{
   }
 
   queryUsers(paginationDtoStream: Observable<PaginationDto>) {
-    return this.bookingService.queryUsers(paginationDtoStream)
+    return this.bookingService.queryBooks(paginationDtoStream)
   }
 }

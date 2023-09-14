@@ -1,4 +1,4 @@
-import {AbstractEntity} from "./abstract-entity";
+import {AbstractEntity} from "../../../../../base/abstract-entity";
 import {BeforeInsert, Column, Entity, JoinTable, ManyToMany, ManyToOne, OneToMany} from "typeorm";
 import {Exclude} from "class-transformer";
 import * as bcrypt from "bcryptjs";

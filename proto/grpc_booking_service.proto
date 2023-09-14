@@ -19,7 +19,7 @@ message Bookings {
 
 message PaginationDto {
     int32 page = 1;
-    int32 sip = 2;
+    int32 skip = 2;
 }
 
 message CreateBookingDto {

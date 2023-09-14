@@ -1,5 +1,5 @@
 import {Column, Entity, JoinColumn, OneToOne} from "typeorm";
-import {AbstractEntity} from "./abstract-entity";
+import {AbstractEntity} from "../../../../../base/abstract-entity";
 import {Item} from "./item.entity";
 
 @Entity('item_detail')

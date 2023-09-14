@@ -3,10 +3,11 @@ import {MicroserviceOptions, Transport} from "@nestjs/microservices";
 import {BookingModule} from "./booking/booking.module";
 import * as path from "path";
 import {GRPC_BOOKING_SERVICE} from "@app/common/constants/packages";
+import {GrpcBookingServiceModule} from "./grpc-booking-service.module";
 
 async function bootstrap() {
     const app = await NestFactory.createMicroservice<MicroserviceOptions>(
-        BookingModule,
+        GrpcBookingServiceModule,
         {
             transport: Transport.GRPC,
             options: {

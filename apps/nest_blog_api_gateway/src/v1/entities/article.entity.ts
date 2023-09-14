@@ -1,4 +1,4 @@
-import {AbstractEntity} from "./abstract-entity";
+import {AbstractEntity} from "../../../../../base/abstract-entity";
 import {
     BeforeInsert,
     BeforeUpdate,

@@ -13,7 +13,7 @@ export interface Bookings {
 
 export interface PaginationDto {
   page: number;
-  sip: number;
+  skip: number;
 }
 
 export interface CreateBookingDto {
@@ -65,7 +65,7 @@ export interface BookingServiceClient {
 }
 
 export interface BookingServiceController {
-  createBooking(request: CreateBookingDto): Promise<Booking> | Observable<Booking> | Booking;
+  createBooking(request: CreateBookingDto): Promise<Booking>;
 
   findAllBookings(request: Empty): Promise<Bookings> | Observable<Bookings> | Bookings;
 

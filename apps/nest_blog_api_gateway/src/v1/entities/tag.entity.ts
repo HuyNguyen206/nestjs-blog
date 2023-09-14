@@ -1,5 +1,5 @@
 import {Column, Entity, ManyToMany} from "typeorm";
-import {AbstractEntity} from "./abstract-entity";
+import {AbstractEntity} from "../../../../../base/abstract-entity";
 import {Article} from "./article.entity";
 
 @Entity('tags')
