@@ -5,10 +5,10 @@ package grpc_booking_service;
 service BookingService {
     rpc CreateBooking (CreateBookingDto) returns (Booking) {}
     rpc FindAllBookings (Empty) returns (Bookings) {};
-    rpc FindOneBookings (FindOneBookingDto) returns (Booking) {};
+    rpc FindOneBooking (FindOneBookingDto) returns (Booking) {};
     rpc UpdateBooking (UpdateBookingDto) returns (Booking) {};
-    rpc RemoveUser (FindOneBookingDto) returns (Booking) {};
-    rpc QueryUsers (stream PaginationDto) returns (stream Bookings) {};
+    rpc RemoveBooking (FindOneBookingDto) returns (Booking) {};
+    rpc QueryBookings (stream PaginationDto) returns (stream Bookings) {};
 }
 
 message Empty {}

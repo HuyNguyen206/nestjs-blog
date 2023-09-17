@@ -5,6 +5,7 @@ import {CommentModule} from "./comment/comment.module";
 import {ItemsModule} from "./items/items.module";
 import {AuthModule} from "../auth/auth.module";
 import {RouterModule} from "@nestjs/core";
+import { BookingEntryModule } from './booking-entry/booking-entry.module';
 
 const routes = [{
   path: 'v1',
@@ -12,7 +13,8 @@ const routes = [{
     {path: 'users', module: UserModule},
     {path: 'articles', module: ArticleModule},
     {path: 'comments', module: CommentModule},
-    {path: 'items', module: ItemsModule}
+    {path: 'items', module: ItemsModule},
+    {path: 'bookings', module: BookingEntryModule},
   ]
 }]
 
@@ -24,6 +26,7 @@ const routes = [{
     ArticleModule,
     CommentModule,
     ItemsModule,
+    BookingEntryModule,
   ]
 })
 export class AppV1Module {

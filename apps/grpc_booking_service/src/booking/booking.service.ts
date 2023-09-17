@@ -8,10 +8,9 @@ import {
 } from "@app/common/types/grpc_booking_service";
 import {randomUUID} from 'crypto'
 import {Observable, Subject} from "rxjs";
-import {DeepPartial} from "typeorm";
 
 @Injectable()
-export class BookingService implements OnModuleInit {
+export class BookingService  {
     private bookings: Booking[] = []
 
     onModuleInit(): any {

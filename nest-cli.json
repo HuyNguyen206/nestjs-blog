@@ -6,18 +6,18 @@
   "compilerOptions": {
     "deleteOutDir": true,
     "webpack": true,
-    "tsConfigPath": "apps/nest-blog/tsconfig.app.json"
+    "tsConfigPath": "apps/nest_blog_api_gateway/tsconfig.app.json"
   },
   "monorepo": true,
-  "root": "apps/nest_blog-api_gateway",
+  "root": "apps/nest_blog_api_gateway",
   "projects": {
-    "nest_blog-api_gateway": {
+    "nest_blog_api_gateway": {
       "type": "application",
-      "root": "apps/nest_blog-api_gateway",
+      "root": "apps/nest_blog_api_gateway",
       "entryFile": "src/main",
       "sourceRoot": "./",
       "compilerOptions": {
-        "tsConfigPath": "apps/nest_blog-api_gateway/tsconfig.app.json",
+        "tsConfigPath": "apps/nest_blog_api_gateway/tsconfig.app.json",
         "assets": ["proto/*.proto"],
         "watchAssets": true
       }

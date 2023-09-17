@@ -55,13 +55,13 @@ export interface BookingServiceClient {
 
   findAllBookings(request: Empty): Observable<Bookings>;
 
-  findOneBookings(request: FindOneBookingDto): Observable<Booking>;
+  findOneBooking(request: FindOneBookingDto): Observable<Booking>;
 
   updateBooking(request: UpdateBookingDto): Observable<Booking>;
 
-  removeUser(request: FindOneBookingDto): Observable<Booking>;
+  removeBooking(request: FindOneBookingDto): Observable<Booking>;
 
-  queryUsers(request: Observable<PaginationDto>): Observable<Bookings>;
+  queryBookings(request: Observable<PaginationDto>): Observable<Bookings>;
 }
 
 export interface BookingServiceController {
@@ -69,13 +69,13 @@ export interface BookingServiceController {
 
   findAllBookings(request: Empty): Promise<Bookings> | Observable<Bookings> | Bookings;
 
-  findOneBookings(request: FindOneBookingDto): Promise<Booking> | Observable<Booking> | Booking;
+  findOneBooking(request: FindOneBookingDto): Promise<Booking> | Observable<Booking> | Booking;
 
   updateBooking(request: UpdateBookingDto): Promise<Booking> | Observable<Booking> | Booking;
 
-  removeUser(request: FindOneBookingDto): Promise<Booking> | Observable<Booking> | Booking;
+  removeBooking(request: FindOneBookingDto): Promise<Booking> | Observable<Booking> | Booking;
 
-  queryUsers(request: Observable<PaginationDto>): Observable<Bookings>;
+  queryBookings(request: Observable<PaginationDto>): Observable<Bookings>;
 }
 
 export function BookingServiceControllerMethods() {
@@ -83,15 +83,15 @@ export function BookingServiceControllerMethods() {
     const grpcMethods: string[] = [
       "createBooking",
       "findAllBookings",
-      "findOneBookings",
+      "findOneBooking",
       "updateBooking",
-      "removeUser",
+      "removeBooking",
     ];
     for (const method of grpcMethods) {
       const descriptor: any = Reflect.getOwnPropertyDescriptor(constructor.prototype, method);
       GrpcMethod("BookingService", method)(constructor.prototype[method], method, descriptor);
     }
-    const grpcStreamMethods: string[] = ["queryUsers"];
+    const grpcStreamMethods: string[] = ["queryBookings"];
     for (const method of grpcStreamMethods) {
       const descriptor: any = Reflect.getOwnPropertyDescriptor(constructor.prototype, method);
       GrpcStreamMethod("BookingService", method)(constructor.prototype[method], method, descriptor);

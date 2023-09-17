@@ -21,7 +21,7 @@ export class BookingController implements BookingServiceController{
     return this.bookingService.findAll();
   }
 
-  findOneBookings(findOneBookingDto: FindOneBookingDto) {
+  findOneBooking(findOneBookingDto: FindOneBookingDto) {
     return this.bookingService.findOne(findOneBookingDto.id);
   }
 
@@ -29,11 +29,11 @@ export class BookingController implements BookingServiceController{
     return this.bookingService.update(updateBookingDto.id, updateBookingDto);
   }
 
-  removeUser(findOneBookingDto: FindOneBookingDto) {
+  removeBooking(findOneBookingDto: FindOneBookingDto) {
     return this.bookingService.remove(findOneBookingDto.id);
   }
 
-  queryUsers(paginationDtoStream: Observable<PaginationDto>) {
+  queryBookings(paginationDtoStream: Observable<PaginationDto>) {
     return this.bookingService.queryBooks(paginationDtoStream)
   }
 }

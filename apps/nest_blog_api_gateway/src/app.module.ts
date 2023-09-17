@@ -13,24 +13,10 @@ import {UserRegisterEvent} from "./events/user.register.event";
 import {UserRegisterListener} from "./listeners/user.register.listener";
 import {CronGeneral} from "./crons/cron.general";
 import databaseConfig from "../../../config/database.config";
-import {ClientsModule, Transport} from "@nestjs/microservices";
-import {BOOKING_SERVICE_NAME} from "@app/common/types/grpc_booking_service";
-import * as path from "path";
 
 
 @Module({
     imports: [
-        ClientsModule.register([
-            {
-                name: BOOKING_SERVICE_NAME,
-                transport: Transport.GRPC,
-                options: {
-                    package: BOOKING_SERVICE_NAME,
-                    protoPath: path.join(__dirname, '../grpc_booking_service.proto')
-                }
-            }
-        ]
-        ),
         EventEmitterModule.forRoot({
 
         }),
