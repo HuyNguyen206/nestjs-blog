@@ -8,18 +8,25 @@ import {JwtAuthGuard} from "./auth/guards/jwt-auth.guard";
 import {AppV1Module} from "./v1/app-v1.module";
 import databaseConfig from "../config/database.config";
 import {ScheduleModule} from "@nestjs/schedule";
-import {EventEmitter} from "typeorm/browser/platform/BrowserPlatformTools";
 import {EventEmitterModule} from "@nestjs/event-emitter";
 import {UserRegisterEvent} from "./events/user.register.event";
 import {UserRegisterListener} from "./listeners/user.register.listener";
 import {CronGeneral} from "./crons/cron.general";
+import {MongooseModule} from "@nestjs/mongoose";
+import {config} from "dotenv";
 
+config();
+const configService = new ConfigService();
 
 @Module({
     imports: [
-        EventEmitterModule.forRoot({
-
-        }),
+        MongooseModule.forRoot(
+            // `mongodb://${configService.get('DATABASE_USERNAME')}:${configService.get('DATABASE_PASSWORD')}@127.0.0.1:27017/nestjs-blog`,
+            `mongodb://127.0.0.1:27017/nestjs-blog`,
+            {
+                connectionName: 'logs'
+            }),
+        EventEmitterModule.forRoot({}),
         ScheduleModule.forRoot(),
         ConfigModule.forRoot({
             isGlobal: true,

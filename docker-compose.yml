@@ -7,11 +7,25 @@ services:
     ports:
       - ${DATABASE_PORT}:5432
     environment:
-      POSTGRES_USER: ${DATABASE_USER}
+      POSTGRES_USER: ${DATABASE_USERNAME}
       POSTGRES_PASSWORD: ${DATABASE_PASSWORD}
       POSTGRES_DB: ${DATABASE_DB}
     volumes:
       - ./pgdata:/var/lib/postgresql/data
 
+  mongodb:
+    image: mongo:latest
+    container_name: mongodb-container
+    ports:
+      - ${MONGODB_PORT}:27017
+    environment:
+      MONGO_INITDB_DATABASE: ${DATABASE_DB}
+#      MONGO_INITDB_ROOT_USERNAME: ${DATABASE_USERNAME}
+#      MONGO_INITDB_ROOT_PASSWORD: ${DATABASE_PASSWORD}
+    volumes:
+     - ./mongodb_data:/data/db
+     - ./mongoconfig:/data/configdb
+
 volumes:
   pgdata:
+  mongodb_data:
